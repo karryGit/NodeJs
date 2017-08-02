@@ -7,11 +7,11 @@ var server = http.createServer(function (request, response) {
     var urlObj = url.parse(request.url);//生成一个url对象
     console.log(urlObj);
     var pathname = urlObj.pathname;
-    if (pathname === '/img.jpg') {
+    if (pathname === '/image/img.jpg') {
         var finalPath = path.join(__dirname, pathname);
         fs.readFile(finalPath, 'binary', function (err, data) {
             if (err) {
-                response.writeHead(200, {'Content-Type': 'text/html'});
+                response.writeHead(404, {'Content-Type': 'text/html'});
                 response.write(err);
                 response.end("错误");
             } else {
