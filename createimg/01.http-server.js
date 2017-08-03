@@ -11,17 +11,14 @@ var server = http.createServer(function (request, response) {
         var finalPath = path.join(__dirname, pathname);
         fs.readFile(finalPath, 'binary', function (err, data) {
             if (err) {
-                response.writeHead(404, {'Content-Type': 'text/html'});
+                response.writeHead(200, {'Content-Type': 'text/html'});
                 response.write(err);
                 response.end("错误");
             } else {
-                response.writeHead(200, {'Content-Type': 'image/png'});
+                response.writeHead(200, {'Content-Type': 'image/jpg'});
                 response.write(data, 'binary');
                 response.end("成功");
             }
-            // if (err)return;
-            // console.log(data);
-            // response.end(data);
         });
 
     } else {
