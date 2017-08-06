@@ -8,7 +8,9 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var login = require('./routes/login');
+var forgetpass = require('./routes/forgetpass')
 var loginSuccess = require('./routes/loginSuccess');
+var updata = require('./routes/updata')
 var app = express();
 
 // view engine setup
@@ -30,6 +32,8 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login',login);
 app.use('/loginSuccess',loginSuccess);
+app.use('/forgetpass',forgetpass);
+app.use('/updata',updata);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
