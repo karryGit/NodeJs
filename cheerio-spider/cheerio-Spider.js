@@ -88,7 +88,31 @@ request.get(options, function (error, response, body) {
         bookArr.push(title);
         download(bookUrl,'book',index+'.jpg');
     })
-    console.log(title);
+
+    //音乐部分
+    var musicArr = [];
+    $('#anony-music .wrapper .main .album-list ul li').each(function (index,element) {
+        var musicUrl = $(element).children('.pic').children('a').children('img').attr('data-origin')
+        var title = {
+            title:$(element).children('.title').children('a').text(),
+            artist:$(element).children('.artist').children('a').text(),
+            rating:$(element).children('.rating').children('i').text()
+        }
+        musicArr.push(title);
+        download(musicUrl,'music',index+'.jpg');
+    })
+    //音乐部分2
+    var musicArr2 = [];
+    $('#anony-music .wrapper .main .programme-list ul li').each(function (index,element) {
+        var musicUrl1 = $(element).children('.pic').children('img').attr('src')
+        var title = {
+            title:$(element).children('.title').text()
+        }
+        musicArr2.push(title);
+        download(musicUrl1,'music1',index+'.jpg');
+    })
+
+
 
 
 
