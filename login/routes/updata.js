@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 //引入mysql依赖
 var mysql = require('mysql');
-
+var password = 0;
+var oldpassword = 0;
 //封装函数
 function handleError(message, error) {
     if (error) {
@@ -16,18 +17,26 @@ function handleError(message, error) {
 }
 
 /* GET home page. */
-router.post('/', function(req, res) {
+router.post('/', function (req, res) {
 
-    var password = req.body.affirm;
-    console.log(password+ '确认密码')
+    password = req.body.affirm;
+    oldpassword = req.body.PassWord;
+
+    console.log(password + '确认密码');
+
     sql(res)
-
-    // res.render('updata', { title: 'Express' });
 
 });
 
 
 function sql(res) {
+    //连接数据库需要的参数
+    var options = {
+        host: 'localhost',
+        port: 3306,
+        user: 'root',
+        password: ''
+    }
     //创建连接
     var connect = mysql.createConnection(options);
     //建立连接
@@ -42,19 +51,21 @@ function sql(res) {
     });
 
     //修改数据库
-    var updataSQL = 'update login set password where password=' + password;
+    var updataSQL = 'update login set password=' + password + ' where password= ' + oldpassword;
     //执行修改数据
     connect.query(updataSQL, function (error) {
 
-        handleError('修改数据', error)
+        var  isSuccess = handleError('修改数据',error);
+        if (!isSuccess){
+            return;
+        }
+        res.send('修改成功');
     });
 
     //关闭数据库
     connect.end(function (error) {
         handleError('关闭', error)
     });
-    var password = req.body.affirm;
-    console.log(password);
-    res.send('成功');
+
 }
 module.exports = router;
